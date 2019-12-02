@@ -21,13 +21,11 @@ var sum = function(array) {
   var tArray = array.slice();
   if (tArray.length > 1) {
     return tArray[0] + sum(tArray.slice(1));
-  } else if (tArray.length == 1) {
+  } else if (tArray.length === 1) {
     return tArray[0];
   }
   return 0;
 };
-
-sum([2, 4, 6]);
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
@@ -50,7 +48,14 @@ var isEven = function(n) {
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
-var sumBelow = function(n) {};
+var sumBelow = function(n) {
+  if (n > 0) {
+    return n - 1 + sumBelow(n - 1);
+  } else if (n < 0) {
+    return n + 1 + sumBelow(n + 1);
+  }
+  return 0;
+};
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
