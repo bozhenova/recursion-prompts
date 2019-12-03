@@ -28,8 +28,20 @@ var sum = function(array) {
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
-// arraySum([1,[2,3],[[4]],5]); // 15
-var arraySum = function(array) {};
+// arraySum([1,[2,3],[[4]],5]);
+var arraySum = function(array) {
+  var sum = 0;
+  for (var i = 0; i < array.length; i++) {
+    if (typeof array[i] === "number") {
+      sum += array[i];
+    } else if (array[i] instanceof Array) {
+      sum += arraySum(array[i]);
+    }
+  }
+  return sum;
+};
+
+arraySum([1, [2, 3], [[4]], 5]);
 
 // 4. Check if a number is even.
 var isEven = function(n) {
@@ -38,9 +50,8 @@ var isEven = function(n) {
       return true;
     } else if (n === 1) {
       return false;
-    } else {
-      return isEven(n - 2);
     }
+    return isEven(n - 2);
   }
   return isEven(n + 2);
 };
