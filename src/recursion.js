@@ -41,8 +41,6 @@ var arraySum = function(array) {
   return sum;
 };
 
-arraySum([1, [2, 3], [[4]], 5]);
-
 // 4. Check if a number is even.
 var isEven = function(n) {
   if (n >= 0) {
@@ -70,7 +68,14 @@ var sumBelow = function(n) {
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
-var range = function(x, y) {};
+var range = function(x, y) {
+  if (x < y - 1) {
+    return [x + 1].concat(range(x + 1, y));
+  } else if (x > y + 1) {
+    return [x - 1].concat(range(x - 1, y));
+  }
+  return [];
+};
 
 // 7. Compute the exponent of a number.
 // The exponent of a number says how many times the base number is used as a factor.
