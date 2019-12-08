@@ -14,6 +14,7 @@ var factorial = function(n) {
   } else if (n < 0) {
     return null;
   }
+
   return 1;
 };
 
@@ -21,11 +22,13 @@ var factorial = function(n) {
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
   var tArray = array.slice();
+
   if (tArray.length > 1) {
     return tArray[0] + sum(tArray.slice(1));
   } else if (tArray.length === 1) {
     return tArray[0];
   }
+
   return 0;
 };
 
@@ -33,6 +36,7 @@ var sum = function(array) {
 // arraySum([1,[2,3],[[4]],5]);
 var arraySum = function(array) {
   var sum = 0;
+
   for (var i = 0; i < array.length; i++) {
     if (typeof array[i] === "number") {
       sum += array[i];
@@ -40,6 +44,7 @@ var arraySum = function(array) {
       sum += arraySum(array[i]);
     }
   }
+
   return sum;
 };
 
@@ -53,6 +58,7 @@ var isEven = function(n) {
     }
     return isEven(n - 2);
   }
+
   return isEven(n + 2);
 };
 
@@ -65,6 +71,7 @@ var sumBelow = function(n) {
   } else if (n < 0) {
     return n + 1 + sumBelow(n + 1);
   }
+
   return 0;
 };
 
@@ -76,6 +83,7 @@ var range = function(x, y) {
   } else if (x > y + 1) {
     return [x - 1].concat(range(x - 1, y));
   }
+
   return [];
 };
 
@@ -93,6 +101,7 @@ var exponent = function(base, exp) {
     return base * exponent(base, exp - 1);
   }
   var a = exponent(base, exp / 2);
+
   return a * a;
 };
 
@@ -106,6 +115,7 @@ var powerOfTwo = function(n) {
   } else if (n < 1) {
     return false;
   }
+
   return powerOfTwo(n / 2);
 };
 
@@ -121,9 +131,10 @@ var palindrome = function(string) {
   if (string.length <= 1) {
     return true;
   }
-  if (string[0].toUpperCase() !== string[string.length - 1].toUpperCase()) {
+  if (string[0].toLowerCase() !== string[string.length - 1].toLowerCase()) {
     return false;
   }
+
   return palindrome(string.slice(1, -1));
 };
 
@@ -132,11 +143,33 @@ var palindrome = function(string) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
-var modulo = function(x, y) {};
+var modulo = function(x, y) {
+  if (y === 0) {
+    return NaN;
+  } else if (y < 0) {
+    y = -y;
+  } else if (x < 0) {
+    return -modulo(-x, y);
+  } else if (x < y) {
+    return x;
+  }
+
+  return modulo(x - y, y);
+};
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
-var multiply = function(x, y) {};
+var multiply = function(x, y) {
+  if (y === 1) {
+    return x;
+  } else if (y === 0) {
+    return 0;
+  } else if (y < 0) {
+    return -(x + multiply(x, -y - 1));
+  }
+
+  return x + multiply(x, y - 1);
+};
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
