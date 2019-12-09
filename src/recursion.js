@@ -173,7 +173,38 @@ var multiply = function(x, y) {
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
-var divide = function(x, y) {};
+var divide = function(x, y) {
+  if (y === 0) {
+    return NaN;
+  }
+  if (y === 1) {
+    return x;
+  }
+  if (x === 0) {
+    return 0;
+  }
+  if (x === y) {
+    return 1;
+  }
+
+  if (x < y) {
+    if (x < 0 && y < -x) {
+      x = -x;
+      return -(1 + divide(x - y, y));
+    }
+    return 0;
+  }
+  if (y < 0) {
+    if (-y < x) {
+      y = -y;
+      return -(1 + divide(x - y, y));
+    } else if (-y > x) {
+      return 0;
+    }
+  }
+
+  return 1 + divide(x - y, y);
+};
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
