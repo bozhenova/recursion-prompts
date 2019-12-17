@@ -835,8 +835,8 @@
         // expect(gcd(0, 0)).to.be.null;
         // expect(gcd(0, 5)).to.be.null;
         // expect(gcd(5, 0)).to.be.null;
-        // expect(gcd(-5, 0)).to.be.null;
-        // expect(gcd(0, -5)).to.be.null;
+        expect(gcd(-5, 0)).to.be.null;
+        expect(gcd(0, -5)).to.be.null;
       });
 
       it('should use recursion by calling self', function() {
@@ -887,7 +887,7 @@
       });
 
       it('should use recursion by calling self', function() {
-        compareStr('house', 'houses');
+        compareStr('house', 'house');
         expect(compareStr.callCount).to.be.above(1);
       });
 
