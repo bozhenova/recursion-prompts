@@ -278,21 +278,22 @@ var buildList = function (value, length) {
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function (n) {
   var arr = [];
-  for (var i = 1; i <= n; i++) {
-    if (i % 3 === 0 && i % 5 === 0) {
-      arr.push('FizzBuzz');
-    } else if (i % 3 === 0) {
-      arr.push('Fizz');
-    } else if (i % 5 === 0) {
-      arr.push('Buzz');
-    } else {
-      arr.push('' + i);
-    }
+  if (n === 0) {
+    return arr;
   }
-  return arr;
+  if (n % 3 === 0 && n % 5 === 0) {
+    arr.push('FizzBuzz');
+  } else if (n % 3 === 0) {
+    arr.push('Fizz');
+  } else if (n % 5 === 0) {
+    arr.push('Buzz');
+  } else {
+    arr.push('' + n);
+  }
+  return fizzBuzz(n - 1).concat(arr);
 };
 
-fizzBuzz(15) // ['1','2','Fizz','4','Buzz']
+fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 
 // 20. Count the occurence of a value in a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
@@ -324,14 +325,55 @@ var replaceKeysInObj = function (obj, oldKey, newKey) { };
 // Example: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34.....
 // fibonacci(5); // [0,1,1,2,3,5]
 // Note: The 0 is not counted.
-var fibonacci = function (n) { };
+var fibonacci = function (n) {
+  if (n <= 0) {
+    return null;
+  }
+  if (n === 1) {
+    return [0, 1];
+  } else {
+    var fib = fibonacci(n - 1);
+    fib.push(fib[fib.length - 1] + fib[fib.length - 2]);
+    return fib;
+  }
+};
+
+fibonacci(5);
 
 // 26. Return the Fibonacci number located at index n of the Fibonacci sequence.
 // [0,1,1,2,3,5,8,13,21]
 // nthFibo(5); // 5
 // nthFibo(7); // 13
 // nthFibo(3); // 2
-var nthFibo = function (n) { };
+
+//simple solution
+var nthFibo = function (n) {
+  return n <= 1 ? n : nthFibo(n - 1) + nthFibo(n - 2);
+}
+nthFibo(5);
+
+//with memoization
+// (function () {
+//   var memo = {};
+
+//   function f(n) {
+//     var value;
+
+//     if (n in memo) {
+//       value = memo[n];
+//     } else {
+//       if (n === 0 || n === 1)
+//         value = n;
+//       else
+//         value = f(n - 1) + f(n - 2);
+//       memo[n] = value;
+//     }
+//     return value;
+//   }
+
+//   return f;
+// })();
+
 
 // 27. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
