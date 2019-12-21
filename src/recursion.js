@@ -348,6 +348,9 @@ fibonacci(5);
 
 //simple solution
 var nthFibo = function (n) {
+  if (n < 0) {
+    return null;
+  }
   return n <= 1 ? n : nthFibo(n - 1) + nthFibo(n - 2);
 }
 nthFibo(5);
