@@ -242,7 +242,6 @@ var createArray = function (str) {
   if (str.length >= 1) {
     arr.push(str[0]);
     arr = arr.concat(createArray(str.slice(1)));
-    return arr;
   }
   return arr;
 };
@@ -253,7 +252,6 @@ var reverseArr = function (array) {
   if (array.length >= 1) {
     reversed.push(array[array.length - 1]);
     reversed = reversed.concat(reverseArr(array.slice(0, array.length - 1)));
-    return reversed;
   }
   return reversed;
 };
@@ -293,12 +291,19 @@ var fizzBuzz = function (n) {
   return fizzBuzz(n - 1).concat(arr);
 };
 
-fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
-
 // 20. Count the occurence of a value in a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
-var countOccurrence = function (array, value) { };
+var countOccurrence = function (array, value) {
+  var count = 0;
+  if (array.length !== 0) {
+    if (array[0] === value) {
+      count++;
+    }
+    return count + countOccurrence(array.slice(1), value);
+  }
+  return count;
+};
 
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
