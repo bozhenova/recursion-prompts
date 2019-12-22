@@ -346,36 +346,34 @@ fibonacci(5);
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 
-//simple solution
+//using memoization
 var nthFibo = function (n) {
   if (n < 0) {
     return null;
   }
-  return n <= 1 ? n : nthFibo(n - 1) + nthFibo(n - 2);
+
+  var mem = {};
+  if (mem[n] === undefined) {
+    if (n < 2) {
+      mem[n] = n;
+    }
+    else {
+      mem[n] = nthFibo(n - 2) + nthFibo(n - 1);
+    }
+  }
+  return mem[n];
 }
-nthFibo(5);
 
-//with memoization
-// (function () {
-//   var memo = {};
+nthFibo(10);
 
-//   function f(n) {
-//     var value;
-
-//     if (n in memo) {
-//       value = memo[n];
-//     } else {
-//       if (n === 0 || n === 1)
-//         value = n;
-//       else
-//         value = f(n - 1) + f(n - 2);
-//       memo[n] = value;
-//     }
-//     return value;
+//naive algorithm
+// var nthFibo = function (n) {
+//   if (n < 0) {
+//     return null;
 //   }
+//   return n <= 1 ? n : nthFibo(n - 1) + nthFibo(n - 2);
+// }
 
-//   return f;
-// })();
 
 
 // 27. Given an array of words, return a new array containing each word capitalized.
