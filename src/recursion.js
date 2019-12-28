@@ -241,7 +241,7 @@ var createArray = function (str) {
   var arr = [];
   if (str.length >= 1) {
     arr.push(str[0]);
-    arr = arr.concat(createArray(str.slice(1)));
+    return arr.concat(createArray(str.slice(1)));
   }
   return arr;
 };
@@ -251,7 +251,7 @@ var reverseArr = function (array) {
   var reversed = [];
   if (array.length >= 1) {
     reversed.push(array[array.length - 1]);
-    reversed = reversed.concat(reverseArr(array.slice(0, array.length - 1)));
+    return reversed.concat(reverseArr(array.slice(0, array.length - 1)));
   }
   return reversed;
 };
@@ -261,12 +261,11 @@ var reverseArr = function (array) {
 // buildList(7,3) // [7,7,7]
 var buildList = function (value, length) {
   var newArr = [];
-  if (length === 0) {
-    return newArr;
-  } else {
+  if (length >= 1) {
     newArr.push(value);
     return newArr.concat(buildList(value, length - 1));
   }
+  return newArr;
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
@@ -300,7 +299,7 @@ var countOccurrence = function (array, value) {
     if (array[0] === value) {
       count++;
     }
-    return count + countOccurrence(array.slice(1), value);
+    count += countOccurrence(array.slice(1), value);
   }
   return count;
 };
@@ -308,16 +307,11 @@ var countOccurrence = function (array, value) {
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function (array, callback) {
-  if (!array) {
-    return null;
-  }
   var tArray = array.slice();
   var newArray = [];
-  if (tArray.length === 1) {
-    newArray.push(callback(tArray[0]));
-  } else {
-    newArray.push(callback(tArray[0]));
-    newArray = newArray.concat(rMap(tArray.slice(1), callback));
+  newArray.push(callback(tArray[0]));
+  if (tArray.length > 1) {
+    return newArray.concat(rMap(tArray.slice(1), callback));
   }
   return newArray;
 };
@@ -411,22 +405,30 @@ var nthFibo = function (n) {
   return mem[n];
 }
 
-nthFibo(10);
-
 //naive algorithm
-// var nthFibo = function (n) {
-//   if (n < 0) {
-//     return null;
-//   }
-//   return n <= 1 ? n : nthFibo(n - 1) + nthFibo(n - 2);
-// }
+var nthFibo = function (n) {
+  if (n < 0) {
+    return null;
+  }
+  return n <= 1 ? n : nthFibo(n - 1) + nthFibo(n - 2);
+}
 
 
 
 // 27. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
-var capitalizeWords = function (array) { };
+var capitalizeWords = function (array) {
+  var newArr = [];
+  newArr.push(array[0].toUpperCase());
+  if (array.length > 1) {
+    return newArr.concat(capitalizeWords(array.slice(1)));
+  }
+  return newArr;
+};
+
+var words = ['i', 'am', 'learning', 'recursion'];
+capitalizeWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 
 // 28. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car','poop','banana']); // ['Car','Poop','Banana']
