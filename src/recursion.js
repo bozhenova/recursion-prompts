@@ -530,7 +530,14 @@ var compress = function (list) {
 // 33. Augment every element in a list with a new value where each element is an array
 // itself.
 // augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
-var augmentElements = function (array, aug) { };
+var augmentElements = function (array, aug) {
+  if (!array.length) {
+    return array;
+  }
+  array[0].push(aug);
+  augmentElements(array.slice(1), aug);
+  return array;
+};
 
 // 34. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
