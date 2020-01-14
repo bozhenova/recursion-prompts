@@ -542,7 +542,17 @@ var augmentElements = function (array, aug) {
 // 34. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
-var minimizeZeroes = function (array) { };
+var minimizeZeroes = function (array) {
+  var newArr = [];
+  if (!array.length) {
+    return newArr;
+  }
+  if (array[0] !== 0 || array[0] !== array[1]) {
+    newArr.push(array[0]);
+    newArr.concat(minimizeZeroes(array.slice(1)));
+  }
+  return newArr.concat(minimizeZeroes(array.slice(1)));
+};
 
 // 35. Alternate the numbers in an array between positive and negative regardless of
 // their original sign. The first number in the index always needs to be positive.
