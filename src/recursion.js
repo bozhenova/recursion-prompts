@@ -22,12 +22,10 @@ var factorial = function (n) {
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function (array) {
-  var tArray = array.slice();
-
-  if (tArray.length > 1) {
-    return tArray[0] + sum(tArray.slice(1));
-  } else if (tArray.length === 1) {
-    return tArray[0];
+  if (array.length > 1) {
+    return array[0] + sum(array.slice(1));
+  } else if (array.length === 1) {
+    return array[0];
   }
 
   return 0;
@@ -239,21 +237,21 @@ var compareStr = function (str1, str2) {
 // occupies an index of the array.
 var createArray = function (str) {
   var arr = [];
-  if (str.length >= 1) {
-    arr.push(str[0]);
-    return arr.concat(createArray(str.slice(1)));
+  if (!str.length) {
+    return arr;
   }
-  return arr;
+  arr.push(str[0]);
+  return arr.concat(createArray(str.slice(1)));
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function (array) {
   var reversed = [];
-  if (array.length >= 1) {
-    reversed.push(array[array.length - 1]);
-    return reversed.concat(reverseArr(array.slice(0, array.length - 1)));
+  if (!array.length) {
+    return reversed;
   }
-  return reversed;
+  reversed.push(array[array.length - 1]);
+  return reversed.concat(reverseArr(array.slice(0, array.length - 1)));
 };
 
 // 18. Create a new array with a given value and length.
@@ -307,13 +305,12 @@ var countOccurrence = function (array, value) {
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function (array, callback) {
-  var tArray = array.slice();
   var newArray = [];
-  newArray.push(callback(tArray[0]));
-  if (tArray.length > 1) {
-    return newArray.concat(rMap(tArray.slice(1), callback));
+  if (!array.length) {
+    return newArray;
   }
-  return newArray;
+  newArray.push(callback(array[0]));
+  return newArray.concat(rMap(array.slice(1), callback));
 };
 
 function timesTwo(elem) {
@@ -394,8 +391,6 @@ var fibonacci = function (n) {
   }
 };
 
-fibonacci(5);
-
 // 26. Return the Fibonacci number located at index n of the Fibonacci sequence.
 // [0,1,1,2,3,5,8,13,21]
 // nthFibo(5); // 5
@@ -428,8 +423,6 @@ var nthFibo = function (n) {
   return n <= 1 ? n : nthFibo(n - 1) + nthFibo(n - 2);
 }
 
-
-
 // 27. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
@@ -441,9 +434,6 @@ var capitalizeWords = function (array) {
   }
   return newArr;
 };
-
-var words = ['i', 'am', 'learning', 'recursion'];
-capitalizeWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 
 // 28. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car','poop','banana']); // ['Car','Poop','Banana']
@@ -549,7 +539,6 @@ var minimizeZeroes = function (array) {
   }
   if (array[0] !== 0 || array[0] !== array[1]) {
     newArr.push(array[0]);
-    newArr.concat(minimizeZeroes(array.slice(1)));
   }
   return newArr.concat(minimizeZeroes(array.slice(1)));
 };
@@ -575,7 +564,33 @@ var alternateSign = function (array) {
 // 36. Given a string, return a string with digits converted to their word equivalent.
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
-var numToText = function (str) { };
+var numToText = function (str) {
+  var myObj = {
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
+    0: 'zero'
+  };
+  var result = "";
+  if (str.length === 0) {
+    return result;
+  }
+  var curChar = str[0];
+  if (myObj[curChar]) {
+    result += myObj[curChar];
+  }
+  else {
+    result += curChar;
+  }
+  return result + numToText(str.slice(1));
+};
+
 
 // *** EXTRA CREDIT ***
 
