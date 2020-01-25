@@ -651,4 +651,30 @@ function merge(arrA, arrB) {
 // var obj2 = clone(obj1);
 // console.log(obj2); // {a:1,b:{bb:{bbb:2}},c:3}
 // obj1 === obj2 // false
-var clone = function (input) { };
+var clone = function (input) {
+  if (typeof input === 'object') {
+    if (input === null) return {};
+    var result = {};
+    for (var key in input) {
+      var value = input[key];
+      if (typeof value === 'object') {
+        result[key] = clone(value);
+      } else {
+        result[key] = value;
+      }
+    }
+  }
+  if (Array.isArray(input)) {
+    if (input.length === 0) return [];
+    var result = [];
+    input.forEach(key => {
+      if (typeof key === 'object') {
+        result.push(clone(key));
+      } else {
+        result.push(key);
+      }
+    })
+  }
+  return result;
+};
+
